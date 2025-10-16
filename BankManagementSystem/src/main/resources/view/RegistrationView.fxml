@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="bankmanagementsystem.controller.RegistrationController"
+            prefWidth="500" prefHeight="700">
+    
+    <VBox alignment="CENTER" spacing="15" layoutX="50" layoutY="30">
+        <Label text="Customer Registration" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        
+        <!-- Personal Information -->
+        <Label text="Personal Information" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+        
+        <HBox spacing="10">
+            <TextField fx:id="firstNameField" promptText="First Name" prefWidth="200"/>
+            <TextField fx:id="lastNameField" promptText="Last Name" prefWidth="200"/>
+        </HBox>
+        
+        <TextField fx:id="addressField" promptText="Address" prefWidth="410"/>
+        
+        <!-- Customer Type -->
+        <Label text="Customer Type" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+        <ComboBox fx:id="customerTypeCombo" prefWidth="410"/>
+        
+        <!-- Additional Information -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label fx:id="additionalInfoLabel" text="National ID:" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="additionalInfoField" promptText="Enter your National ID" prefWidth="300"/>
+        </HBox>
+        
+        <!-- Login Credentials -->
+        <Label text="Login Credentials" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+        
+        <TextField fx:id="usernameField" promptText="Username" prefWidth="410"/>
+        <PasswordField fx:id="passwordField" promptText="Password" prefWidth="410"/>
+        <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" prefWidth="410"/>
+        <TextField fx:id="emailField" promptText="Email Address" prefWidth="410"/>
+        
+        <!-- Messages -->
+        <Label fx:id="errorLabel" textFill="red" style="-fx-font-weight: bold;" wrapText="true" prefWidth="410"/>
+        <Label fx:id="successLabel" textFill="green" style="-fx-font-weight: bold;" wrapText="true" prefWidth="410"/>
+        
+        <!-- Buttons -->
+        <HBox spacing="20" alignment="CENTER">
+            <Button fx:id="registerButton" text="Register" onAction="#handleRegister" 
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-width: 120; -fx-pref-height: 35;"/>
+            <Button fx:id="backToLoginButton" text="Back to Login" onAction="#handleBackToLogin"
+                    style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-width: 120; -fx-pref-height: 35;"/>
+        </HBox>
+        
+        <!-- Instructions -->
+        <VBox spacing="5" style="-fx-background-color: #ecf0f1; -fx-padding: 10; -fx-background-radius: 5;">
+            <Label text="Registration Instructions:" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Label text="• Choose a unique username and email" style="-fx-text-fill: #7f8c8d;"/>
+            <Label text="• Password must be at least 6 characters" style="-fx-text-fill: #7f8c8d;"/>
+            <Label text="• For Personal: Enter your National ID" style="-fx-text-fill: #7f8c8d;"/>
+            <Label text="• For Company: Enter your company name" style="-fx-text-fill: #7f8c8d;"/>
+        </VBox>
+    </VBox>
+</AnchorPane>

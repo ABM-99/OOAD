@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="bankmanagementsystem.controller.EmployeeCustomerCreationController"
+            prefWidth="500" prefHeight="600">
+    
+    <VBox alignment="CENTER" spacing="15" layoutX="50" layoutY="30">
+        <Label text="Create Customer Account" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        
+        <!-- Customer Information -->
+        <Label text="Customer Information" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+        
+        <HBox spacing="10">
+            <TextField fx:id="firstNameField" promptText="First Name" prefWidth="200"/>
+            <TextField fx:id="lastNameField" promptText="Last Name" prefWidth="200"/>
+        </HBox>
+        
+        <TextField fx:id="addressField" promptText="Address" prefWidth="410"/>
+        
+        <!-- Customer Type -->
+        <Label text="Customer Type" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+        <ComboBox fx:id="customerTypeCombo" prefWidth="410"/>
+        
+        <!-- Additional Information -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label fx:id="additionalInfoLabel" text="National ID:" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="additionalInfoField" promptText="Enter customer's National ID" prefWidth="300"/>
+        </HBox>
+        
+        <!-- Account Information -->
+        <Label text="Account Information" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+        
+        <HBox spacing="10">
+            <ComboBox fx:id="accountTypeCombo" promptText="Account Type" prefWidth="200"/>
+            <ComboBox fx:id="branchCombo" promptText="Branch" prefWidth="200"/>
+        </HBox>
+        
+        <TextField fx:id="initialBalanceField" promptText="Initial Balance" prefWidth="410"/>
+        
+        <!-- Employment Details (for Cheque Accounts) -->
+        <VBox fx:id="employmentDetailsBox" spacing="10" style="-fx-background-color: #f8f9fa; -fx-padding: 10; -fx-background-radius: 5;">
+            <Label text="Employment Details (Required for Cheque Accounts)" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <TextField fx:id="employerNameField" promptText="Employer Name" prefWidth="410"/>
+            <TextField fx:id="employerAddressField" promptText="Employer Address" prefWidth="410"/>
+        </VBox>
+        
+        <!-- Messages -->
+        <Label fx:id="errorLabel" textFill="red" style="-fx-font-weight: bold;" wrapText="true" prefWidth="410"/>
+        <Label fx:id="successLabel" textFill="green" style="-fx-font-weight: bold;" wrapText="true" prefWidth="410"/>
+        
+        <!-- Buttons -->
+        <HBox spacing="20" alignment="CENTER">
+            <Button fx:id="createButton" text="Create Customer" onAction="#handleCreateCustomer" 
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-width: 140; -fx-pref-height: 35;"/>
+            <Button fx:id="backToEmployeeButton" text="Back to Dashboard" onAction="#handleBackToEmployee"
+                    style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-width: 140; -fx-pref-height: 35;"/>
+        </HBox>
+        
+        <!-- Instructions -->
+        <VBox spacing="5" style="-fx-background-color: #ecf0f1; -fx-padding: 10; -fx-background-radius: 5;">
+            <Label text="Employee Instructions:" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Label text="• This creates a customer account without login credentials" style="-fx-text-fill: #7f8c8d;"/>
+            <Label text="• Customer will need to set up their own username/password" style="-fx-text-fill: #7f8c8d;"/>
+            <Label text="• For Personal: Enter customer's National ID" style="-fx-text-fill: #7f8c8d;"/>
+            <Label text="• For Company: Enter company name" style="-fx-text-fill: #7f8c8d;"/>
+        </VBox>
+    </VBox>
+</AnchorPane>

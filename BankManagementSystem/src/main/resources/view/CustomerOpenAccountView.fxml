@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="bankmanagementsystem.controller.CustomerOpenAccountController"
+            prefWidth="500" prefHeight="600">
+    
+    <VBox alignment="CENTER" spacing="15" layoutX="50" layoutY="30">
+        <Label text="➕ Open New Account" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        
+        <!-- Account Information -->
+        <Label text="Account Information" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+        
+        <HBox spacing="10">
+            <ComboBox fx:id="accountTypeCombo" promptText="Account Type" prefWidth="200"/>
+            <ComboBox fx:id="branchCombo" promptText="Branch" prefWidth="200"/>
+        </HBox>
+        
+        <TextField fx:id="initialBalanceField" promptText="Initial Balance" prefWidth="410"/>
+        
+        <!-- Employment Details (for Cheque Accounts) -->
+        <VBox fx:id="employmentDetailsBox" spacing="10" style="-fx-background-color: #f8f9fa; -fx-padding: 10; -fx-background-radius: 5;">
+            <Label text="Employment Details (Required for Cheque Accounts)" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <TextField fx:id="employerNameField" promptText="Employer Name" prefWidth="410"/>
+            <TextField fx:id="employerAddressField" promptText="Employer Address" prefWidth="410"/>
+        </VBox>
+        
+        <!-- Business Rules Info -->
+        <VBox spacing="5" style="-fx-background-color: #e8f4fd; -fx-padding: 10; -fx-background-radius: 5;">
+            <Label text="📋 Account Requirements:" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Label text="• Investment accounts require minimum BWP 500 deposit" style="-fx-text-fill: #7f8c8d;"/>
+            <Label text="• Cheque accounts require employment details" style="-fx-text-fill: #7f8c8d;"/>
+            <Label text="• Savings accounts have no special requirements" style="-fx-text-fill: #7f8c8d;"/>
+        </VBox>
+        
+        <!-- Messages -->
+        <Label fx:id="errorLabel" textFill="red" style="-fx-font-weight: bold;" wrapText="true" prefWidth="410"/>
+        <Label fx:id="successLabel" textFill="green" style="-fx-font-weight: bold;" wrapText="true" prefWidth="410"/>
+        
+        <!-- Buttons -->
+        <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="createButton" text="Create Account" onAction="#handleCreateAccount"
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-width: 120; -fx-pref-height: 35; -fx-background-radius: 5;"/>
+            <Button fx:id="backButton" text="Back to Dashboard" onAction="#handleBack"
+                    style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-width: 150; -fx-pref-height: 35; -fx-background-radius: 5;"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

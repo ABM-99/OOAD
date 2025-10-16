@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="bankmanagementsystem.controller.EmployeeDashboardController"
+            prefWidth="800" prefHeight="600"
+            style="-fx-background-color: #f8f9fa;">
+    
+    <top>
+        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #2c3e50; -fx-padding: 20;">
+            <Label text="🏦 Bank Management System" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="Employee Dashboard" style="-fx-font-size: 18px; -fx-text-fill: #ecf0f1;"/>
+        </VBox>
+    </top>
+    
+    <center>
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 40;">
+            <Label text="Welcome to the Bank Management System" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Label text="Select an option below to manage customers and accounts" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+            
+            <VBox alignment="CENTER" spacing="15" style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                <Button fx:id="registerCustomerButton" text="Register Customer" onAction="#handleRegisterCustomer" 
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-pref-width: 200; -fx-pref-height: 40; -fx-background-radius: 5;"/>
+                
+                <Button fx:id="viewCustomersButton" text="View Customers" onAction="#handleViewCustomers" 
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-pref-width: 200; -fx-pref-height: 40; -fx-background-radius: 5;"/>
+                
+                <Button fx:id="viewAuditButton" text="View Audit Log" onAction="#handleViewAuditLog" 
+                        style="-fx-background-color: #16a085; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-pref-width: 200; -fx-pref-height: 40; -fx-background-radius: 5;"/>
+
+                <Button text="💰 Apply Interest (System)" onAction="#handleApplyInterest" 
+                        style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-pref-width: 200; -fx-pref-height: 40; -fx-background-radius: 5;"/>
+                
+                <Button text="💾 Save Data" onAction="#handleSaveData" 
+                        style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-pref-width: 200; -fx-pref-height: 40; -fx-background-radius: 5;"/>
+                
+                <Button text="🚪 Logout" onAction="#handleLogout" 
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-pref-width: 200; -fx-pref-height: 40; -fx-background-radius: 5;"/>
+            </VBox>
+        </VBox>
+    </center>
+    
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #34495e; -fx-padding: 15;">
+            <Label text="Bank Management System v1.0 | Employee Portal" style="-fx-text-fill: #ecf0f1; -fx-font-size: 12px;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

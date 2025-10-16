@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="bankmanagementsystem.controller.DepositWithdrawController"
+            prefWidth="520" prefHeight="340">
+    <VBox alignment="TOP_CENTER" spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+        <Label text="Deposit / Withdraw" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        <HBox spacing="8">
+            <Label text="Account No:"/>
+            <TextField fx:id="accountNoField" prefWidth="250"/>
+        </HBox>
+        <HBox spacing="8">
+            <Label text="Amount (BWP):"/>
+            <TextField fx:id="amountField" prefWidth="150"/>
+        </HBox>
+        <HBox spacing="8">
+            <Button text="Deposit" onAction="#handleDeposit"/>
+            <Button text="Withdraw" onAction="#handleWithdraw"/>
+            <Button text="Close" onAction="#handleClose"/>
+        </HBox>
+        <Label fx:id="messageLabel" textFill="green"/>
+    </VBox>
+</AnchorPane>

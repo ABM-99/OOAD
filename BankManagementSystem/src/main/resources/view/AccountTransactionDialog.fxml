@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="bankmanagementsystem.controller.AccountTransactionDialogController"
+            prefWidth="400" prefHeight="500">
+    
+    <VBox alignment="CENTER" spacing="20" layoutX="50" layoutY="30">
+        <Label text="Account Transaction" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        
+        <!-- Account Information -->
+        <VBox spacing="10" style="-fx-background-color: #ecf0f1; -fx-padding: 15; -fx-background-radius: 8;">
+            <Label fx:id="accountInfoLabel" text="Account: Loading..." style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Label fx:id="accountTypeLabel" text="Type: Loading..." style="-fx-text-fill: #7f8c8d;"/>
+            <Label fx:id="currentBalanceLabel" text="Balance: Loading..." style="-fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+        </VBox>
+        
+        <!-- Transaction Amount -->
+        <VBox spacing="10">
+            <Label text="Transaction Amount" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <TextField fx:id="amountField" promptText="Enter amount (BWP)" prefWidth="300"/>
+        </VBox>
+        
+        <!-- Transaction Buttons -->
+        <HBox spacing="15" alignment="CENTER">
+            <Button fx:id="depositButton" text="Deposit" onAction="#handleDeposit" 
+                    prefWidth="100" prefHeight="40"/>
+            <Button fx:id="withdrawButton" text="Withdraw" onAction="#handleWithdraw" 
+                    prefWidth="100" prefHeight="40"/>
+        </HBox>
+        
+        <!-- Message Display -->
+        <Label fx:id="messageLabel" textFill="green" style="-fx-font-weight: bold;" wrapText="true" prefWidth="350"/>
+        
+        <!-- Account Type Information -->
+        <VBox spacing="5" style="-fx-background-color: #e8f4fd; -fx-padding: 10; -fx-background-radius: 5;">
+            <Label text="Account Type Information:" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            <Label text="• Savings Account: Deposit only" style="-fx-text-fill: #7f8c8d;"/>
+            <Label text="• Investment Account: Deposit and Withdraw" style="-fx-text-fill: #7f8c8d;"/>
+            <Label text="• Cheque Account: Deposit and Withdraw" style="-fx-text-fill: #7f8c8d;"/>
+        </VBox>
+        
+        <!-- Back Button -->
+        <Button fx:id="backButton" text="Back to Dashboard" onAction="#handleBack" 
+                prefWidth="150" prefHeight="35"/>
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="bankmanagementsystem.controller.OpenAccountController"
+            prefWidth="600" prefHeight="480">
+    <VBox spacing="8" alignment="TOP_CENTER" layoutX="20" layoutY="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+        <Label text="Open Customer Account" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+        <HBox spacing="10">
+            <Label text="Customer Type:"/>
+            <ChoiceBox fx:id="custTypeChoice" prefWidth="160"/>
+            <Label text="Account Type:"/>
+            <ChoiceBox fx:id="accTypeChoice" prefWidth="160"/>
+        </HBox>
+
+        <GridPane hgap="8" vgap="8">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25"/>
+                <ColumnConstraints percentWidth="75"/>
+            </columnConstraints>
+
+            <!-- Personal fields -->
+            <Label text="First Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="firstNameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Last Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="lastNameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Address:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="addressField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="National ID:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="nationalIdField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <!-- Company fields -->
+            <Label text="Company Name:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="companyNameField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            <Label text="Company Address:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="companyAddressField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+            <!-- Employer fields for cheque account -->
+            <Label text="Employer Name:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <TextField fx:id="employerNameField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+            <Label text="Employer Address:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+            <TextField fx:id="employerAddressField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+            <Label text="Branch:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="branchChoice" promptText="Select branch" GridPane.rowIndex="8" GridPane.columnIndex="1" prefWidth="200"/>
+
+            <Label text="Opening Balance (BWP):" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+            <TextField fx:id="openingBalanceField" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <Label fx:id="messageLabel" textFill="green"/>
+        <HBox spacing="10">
+            <Button text="Create Account" onAction="#handleCreateAccount"/>
+            <Button text="Cancel" onAction="#handleCancel"/>
+        </HBox>
+    </VBox>
+</AnchorPane>
