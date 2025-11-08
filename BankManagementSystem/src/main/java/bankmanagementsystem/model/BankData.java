@@ -8,22 +8,22 @@ public class BankData {
     private static List<CustomerCredentials> credentials = new ArrayList<>();
     private static boolean dataLoaded = false;
 
-    // Load data from files when class is first accessed
+    // Load data from database when class is first accessed
     static {
-        loadDataFromFiles();
+        loadDataFromDatabase();
     }
 
     public static void addCustomer(Customer c) {
         customers.add(c);
         // Auto-save when adding customer
-        FileStorage.saveAllData(customers, credentials);
+        DatabaseStorage.saveAllData(customers, credentials);
         AuditLogger.log("customer", "system", c.getCustomerId(), "create", c.getFirstName() + " " + c.getLastName(), true);
     }
 
     public static void addCustomerCredentials(CustomerCredentials cred) {
         credentials.add(cred);
         // Auto-save when adding credentials
-        FileStorage.saveAllData(customers, credentials);
+        DatabaseStorage.saveAllData(customers, credentials);
         AuditLogger.log("credential", cred.getUsername(), cred.getCustomerId(), "create", "email=" + cred.getEmail(), true);
     }
 
@@ -114,7 +114,7 @@ public class BankData {
             customer.setAddress(newAddress);
         }
 
-        FileStorage.saveAllData(customers, credentials);
+        DatabaseStorage.saveAllData(customers, credentials);
         AuditLogger.log("customer", customerId, customerId, "update_profile", changes.toString(), true);
         return true;
     }
@@ -127,7 +127,7 @@ public class BankData {
             return false;
         }
         customer.addLinkedAccountNumber(accountNumber);
-        FileStorage.saveAllData(customers, credentials);
+        DatabaseStorage.saveAllData(customers, credentials);
         AuditLogger.log("link", customerId, accountNumber, "link_account", "linked", true);
         return true;
     }
@@ -138,7 +138,7 @@ public class BankData {
             for (Account a : c.getAccounts()) {
                 if (a.getAccountNumber().equals(accountNumber)) {
                     a.setClosed(true);
-                    FileStorage.saveAllData(customers, credentials);
+                    DatabaseStorage.saveAllData(customers, credentials);
                     AuditLogger.log("account", actorCustomerId != null ? actorCustomerId : c.getCustomerId(), accountNumber, "close", "soft close", true);
                     return true;
                 }
@@ -148,19 +148,37 @@ public class BankData {
         return false;
     }
 
-    // Load data from files
-    public static void loadDataFromFiles() {
+    // Load data from database
+    public static void loadDataFromDatabase() {
         if (!dataLoaded) {
-            customers = FileStorage.loadAllData();
-            credentials = FileStorage.loadCredentials();
-            dataLoaded = true;
-            System.out.println("📁 Bank data loaded from files. Found " + customers.size() + " customers and " + credentials.size() + " credentials.");
+            try {
+                customers = DatabaseStorage.loadAllData();
+                credentials = DatabaseStorage.loadCredentials();
+                dataLoaded = true;
+                System.out.println("💾 Bank data loaded from database. Found " + customers.size() + " customers and " + credentials.size() + " credentials.");
+            } catch (Exception e) {
+                System.err.println("❌ Failed to load data from database!");
+                System.err.println("Error: " + e.getMessage());
+                e.printStackTrace();
+                System.err.println("\n⚠️ IMPORTANT: Database connection failed!");
+                System.err.println("Please check:");
+                System.err.println("1. MySQL server is running");
+                System.err.println("2. Database 'bank_management' exists");
+                System.err.println("3. MySQL credentials in DatabaseConfig.java are correct");
+                System.err.println("4. Tables are created (run DatabaseSetupRunner)");
+                System.err.println("\n⚠️ Starting with empty data. Please fix database connection and restart.");
+                // Initialize with empty lists instead of falling back to files
+                customers = new ArrayList<>();
+                credentials = new ArrayList<>();
+                dataLoaded = true;
+                System.out.println("📁 Started with empty data. Database connection required.");
+            }
         }
     }
 
-    // Save data to files
+    // Save data to database
     public static void saveDataToFiles() {
-        FileStorage.saveAllData(customers);
+        DatabaseStorage.saveAllData(customers, credentials);
     }
 
     // Add account to customer and save
@@ -168,7 +186,7 @@ public class BankData {
         Customer customer = findCustomerById(customerId);
         if (customer != null) {
             customer.addAccount(account);
-            FileStorage.saveAllData(customers);
+            DatabaseStorage.saveAllData(customers, credentials);
             AuditLogger.log("account", customerId, account.getAccountNumber(), "create", account.getClass().getSimpleName(), true);
         }
     }
@@ -180,7 +198,7 @@ public class BankData {
                 if (account.getAccountNumber().equals(accountNumber)) {
                     // Update balance (this is a simplified approach)
                     // In a real system, you'd have a setter method
-                    FileStorage.saveAllData(customers, credentials);
+                    DatabaseStorage.saveAllData(customers, credentials);
                     return;
                 }
             }
@@ -230,6 +248,31 @@ public class BankData {
 
         return "Customer account created successfully! Customer ID: " + customerId + 
                "\nCustomer can now set up their login credentials.";
+    }
+    
+    // Employee creates customer account and returns the customer ID
+    public static String createCustomerAccountAndGetId(String firstName, String lastName, String address, 
+                                                       String customerType, String additionalInfo) {
+        // Generate customer ID
+        String customerId = generateCustomerId();
+
+        // Create customer based on type
+        Customer customer;
+        if ("PERSONAL".equals(customerType)) {
+            customer = new PersonalCustomer(customerId, firstName, lastName, address, additionalInfo);
+        } else if ("COMPANY".equals(customerType)) {
+            String[] companyInfo = additionalInfo.split("\\|");
+            String companyName = companyInfo.length > 0 ? companyInfo[0] : "";
+            String companyAddress = companyInfo.length > 1 ? companyInfo[1] : "";
+            customer = new CompanyCustomer(customerId, firstName, lastName, address, companyName, companyAddress);
+        } else {
+            return null; // Invalid customer type
+        }
+
+        // Add customer to system (without credentials)
+        addCustomer(customer);
+
+        return customerId; // Return just the customer ID
     }
 
     // Customer sets up their own credentials
@@ -296,7 +339,7 @@ public class BankData {
         }
         
         // Save data after applying interest
-        FileStorage.saveAllData(customers, credentials);
+        DatabaseStorage.saveAllData(customers, credentials);
         AuditLogger.log("system", "interest", "*", "apply", "processed=" + totalAccountsProcessed + ", applied=" + interestApplied, true);
         
         System.out.println("🔄 Automatic Interest Applied:");

@@ -19,7 +19,20 @@ public class Customer {
     }
 
     public void addAccount(Account account) {
-        accounts.add(account);
+        // Check if account already exists to prevent duplicates
+        if (account != null && !accounts.contains(account)) {
+            // Also check by account number to prevent duplicates with same account number
+            boolean exists = false;
+            for (Account existingAccount : accounts) {
+                if (existingAccount.getAccountNumber().equals(account.getAccountNumber())) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                accounts.add(account);
+            }
+        }
     }
 
     public List<Account> getAccounts() {

@@ -116,7 +116,7 @@ public class OpenAccountController {
         // Add account to customer and save
         customer.addAccount(account);
         BankData.addCustomer(customer);
-        FileStorage.saveData(BankData.getCustomers()); // persist to text file
+        DatabaseStorage.saveData(BankData.getCustomers()); // persist to text file
         messageLabel.setText("Account created: " + accNo + " for " + customer.getFirstName() + " " + customer.getLastName());
         messageLabel.setStyle("-fx-text-fill: green;");
         clearForm();

@@ -60,7 +60,7 @@ public class EmployeeDashboardController {
 
     @FXML
     private void handleSaveData() {
-        FileStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
+        DatabaseStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
     }
 
     @FXML

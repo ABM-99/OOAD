@@ -36,7 +36,7 @@ public class DepositWithdrawController {
         if (found.isClosed()) { messageLabel.setText("Account is closed."); messageLabel.setStyle("-fx-text-fill: red;"); AuditLogger.log("transaction", customer.getCustomerId(), accNo, "deposit", "account closed", false); return; }
 
         found.deposit(amt);
-        FileStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
+        DatabaseStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
         AuditLogger.log("transaction", customer.getCustomerId(), accNo, "deposit", "amount=" + amt, true);
         messageLabel.setText("Deposited BWP " + String.format("%.2f", amt));
         messageLabel.setStyle("-fx-text-fill: green;");
@@ -69,7 +69,7 @@ public class DepositWithdrawController {
                 return;
             }
             ((Withdraw) found).withdraw(amt);
-            FileStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
+            DatabaseStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
             AuditLogger.log("transaction", customer.getCustomerId(), accNo, "withdraw", "amount=" + amt, true);
             messageLabel.setText("Withdrew BWP " + String.format("%.2f", amt));
             messageLabel.setStyle("-fx-text-fill: green;");

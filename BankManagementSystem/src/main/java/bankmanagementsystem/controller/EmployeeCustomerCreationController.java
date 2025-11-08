@@ -120,13 +120,6 @@ public class EmployeeCustomerCreationController {
             return;
         }
 
-        // Create customer account (without credentials)
-        String result = BankData.createCustomerAccount(firstName, lastName, address, customerType, additionalInfo);
-
-        if (result.startsWith("Customer account created successfully")) {
-            // Extract customer ID from result
-            String customerId = result.substring(result.indexOf("Customer ID: ") + 13);
-            
         // Get employment details for Cheque accounts
         String employerName = "";
         String employerAddress = "";
@@ -134,19 +127,26 @@ public class EmployeeCustomerCreationController {
             employerName = employerNameField.getText().trim();
             employerAddress = employerAddressField.getText().trim();
         }
-
+        
+        // Create customer account and get customer ID directly
+        String customerId = BankData.createCustomerAccountAndGetId(firstName, lastName, address, customerType, additionalInfo);
+        
+        if (customerId == null) {
+            errorLabel.setText("Invalid customer type.");
+            return;
+        }
+        
         // Create account for the customer
         String accountResult = createAccountForCustomer(customerId, accountType, branch, initialBalance, employerName, employerAddress);
-            
-            if (accountResult.startsWith("Account created successfully")) {
-                successLabel.setText(result + "\n" + accountResult);
-            } else {
-                successLabel.setText(result + "\n" + accountResult);
-            }
-            clearFields();
+        
+        if (accountResult.startsWith("Account created successfully")) {
+            String result = "Customer account created successfully! Customer ID: " + customerId;
+            successLabel.setText(result + "\n" + accountResult);
         } else {
-            errorLabel.setText(result);
+            String result = "Customer account created successfully! Customer ID: " + customerId;
+            errorLabel.setText(result + "\n" + accountResult);
         }
+        clearFields();
     }
 
 
@@ -195,9 +195,11 @@ public class EmployeeCustomerCreationController {
                 return "Invalid account type.";
         }
 
-        // Add account to customer
-        customer.addAccount(account);
-        BankData.saveDataToFiles();
+        // Add account to customer and save to database
+        BankData.addAccountToCustomer(customerId, account);
+        
+        // Ensure account is saved directly to database
+        AccountDAO.saveAccount(account);
 
         return "Account created successfully! Account Number: " + accountNumber;
     }

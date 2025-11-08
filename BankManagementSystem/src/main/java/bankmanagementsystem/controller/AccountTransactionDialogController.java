@@ -78,7 +78,7 @@ public class AccountTransactionDialogController {
             }
 
             account.deposit(amount);
-            FileStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
+            DatabaseStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
             AuditLogger.log("transaction", customer != null ? customer.getCustomerId() : "?", account.getAccountNumber(), "deposit", "amount=" + amount, true);
             
             showMessage("Deposit successful! Amount: BWP " + String.format("%.2f", amount), "green");
@@ -125,7 +125,7 @@ public class AccountTransactionDialogController {
             }
 
             ((Withdraw) account).withdraw(amount);
-            FileStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
+            DatabaseStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
             AuditLogger.log("transaction", customer != null ? customer.getCustomerId() : "?", account.getAccountNumber(), "withdraw", "amount=" + amount, true);
             
             showMessage("Withdrawal successful! Amount: BWP " + String.format("%.2f", amount), "green");

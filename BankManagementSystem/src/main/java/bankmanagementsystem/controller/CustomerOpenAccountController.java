@@ -177,7 +177,7 @@ public class CustomerOpenAccountController {
         customer.addAccount(account);
         
         // Save data
-        FileStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
+        DatabaseStorage.saveAllData(BankData.getCustomers(), BankData.getCredentials());
 
         return "Account created successfully! Account Number: " + accountNumber + 
                "\nAccount Type: " + accountType + 
